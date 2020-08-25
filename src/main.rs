@@ -53,9 +53,13 @@ impl Cythan{
     #[inline]
     fn set_value(&mut self, index:usize, value:usize) {
         if self.cases.len() <= index {
-            self.cases.extend((self.cases.len()..index+1).map(|x| 0)); 
+            self.cases.extend((self.cases.len()..index).map(|x| 0)); 
+            self.cases.push(value);
+        } else {
+            unsafe {
+                *self.cases.get_unchecked_mut(index) = value;
+            }
         }
-        self.cases[index] = value;
     }
 }
 
