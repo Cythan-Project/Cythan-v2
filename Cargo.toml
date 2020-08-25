@@ -1,0 +1,9 @@
+[package]
+name = "cythan_tuto-st1"
+version = "0.1.0"
+authors = ["Cypooos <60020572+Cypooos@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
