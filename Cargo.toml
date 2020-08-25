@@ -7,7 +7,7 @@ edition = "2018"
 repository = "https://github.com/Cypooos/Cythan-v3"
 description = "The Cythan machine implementation in Rust"
 readme = "README.md" 
-license = "Apache License 2.0"
+license = "Apache"
 
 keywords = ["cythan","turing","discursif"]
 cathegories =  ["algorithms","emulators","science","simulation"]
