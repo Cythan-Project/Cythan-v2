@@ -15,27 +15,45 @@ impl Cythan{
             cases
         }
     }
-    fn get_index(&self) -> usize {
-        *self.cases.get(0).unwrap_or(&0)
-    }
+
+    #[inline]
     fn next(&mut self) {
-        self.set_value(0, self.get_index()+2); // ajoue de 2
+        unsafe {
+            let index = {
+                let mut index = self.get_mut_value(0);
+                *index += 2;
+                *index
+            };
 
-        let c2 = self.get_value(self.get_index()-2);
-        let c1 = self.get_value(self.get_index()-1);
-
-        self.set_value(c1,self.get_value(c2)); // execution
+            let (c2,c1) = self.get_both_values(index-2);
+    
+            self.set_value(c1,self.get_value(c2));
+        }
     }
 
+    #[inline]
+    fn get_both_values(&self, index: usize) -> (usize,usize) {
+        let mut i = self.cases.iter().skip(index);
+        (*i.next().unwrap_or(&0),*i.next().unwrap_or(&0))
+    }
+
+    #[inline]
     fn get_value(&self, index:usize) -> usize {
         *self.cases.get(index).unwrap_or(&0)
     }
 
+    #[inline]
+    unsafe fn get_mut_value(&mut self, index:usize) -> &mut usize {
+        if self.cases.len() <= index {
+            self.cases.extend((self.cases.len()..index+1).map(|x| 0)); 
+        }
+        self.cases.get_unchecked_mut(index)
+    }
+
+    #[inline]
     fn set_value(&mut self, index:usize, value:usize) {
         if self.cases.len() <= index {
-            for _ in self.cases.len()..index+1 {
-                self.cases.push(0)
-            }
+            self.cases.extend((self.cases.len()..index+1).map(|x| 0)); 
         }
         self.cases[index] = value;
     }
@@ -51,8 +69,11 @@ fn main() {
     }
 }
 
-#[bench] // use with cargo bench
-    fn bench_add_two(b: &mut Bencher) {
-        let mut cythan = Cythan::new( vec![1,9,5,10,1,0,0,11,0,1,20,21] );
-        b.iter(||{cythan.next()}); // test fast cyth
-    }
+#[bench]
+fn bench(b: &mut Bencher) {
+    let mut cythan = Cythan::new( vec![1,9,5,10,1,0,0,11,0,1,20,21] );
+    b.iter(||{
+        cythan.next()
+    });
+    println!("{:?}",cythan);
+}
