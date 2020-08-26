@@ -20,7 +20,8 @@ cythan = "*"
 
 #### Example
 ```rust
-let mut cythan = Cythan::new(vec![12,78,15,21,20]);
+use cythan::{BasicCythan,Cythan};
+let mut cythan = BasicCythan::new(vec![12,78,15,21,20]);
 for _ in 0..20 {
     cythan.next();
 }
