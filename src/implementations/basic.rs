@@ -9,7 +9,7 @@
 /// let machine = BasicCythan::new(vec![12,23,45,20,0]);
 /// ```
 pub struct BasicCythan {
-    cases: Vec<usize>
+    pub cases: Vec<usize>
 }
 
 impl std::fmt::Display for BasicCythan {

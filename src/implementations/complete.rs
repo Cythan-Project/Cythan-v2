@@ -16,9 +16,9 @@
 /// let machine = CompleteCythan::new_config(vec![12,23,45,20,0],4,|x| x*2);
 /// ```
 pub struct CompleteCythan {
-    cases: Vec<usize>,
-    step: usize,
-    generator: DefaultGenerator,
+    pub cases: Vec<usize>,
+    pub step: usize,
+    pub generator: DefaultGenerator,
 }
 
 impl std::fmt::Display for CompleteCythan {
@@ -131,7 +131,7 @@ fn bench_complete_cythan(b: &mut Bencher) {
     println!("{}", cythan);
 }
 
-enum DefaultGenerator {
+pub enum DefaultGenerator {
     Function(Box<dyn Fn(usize) -> usize>),
     FixedValue(usize),
 }
