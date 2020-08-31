@@ -18,7 +18,7 @@ const fn get_vec() -> [usize; CHUNK_SIZE] {
 /// let machine = ChunkedCythan::new(vec![12,23,45,20,0]);
 /// ```
 pub struct ChunkedCythan {
-    cases: Vec<[usize; CHUNK_SIZE]>
+    pub cases: Vec<[usize; CHUNK_SIZE]>
 }
 
 impl std::fmt::Display for ChunkedCythan {
