@@ -12,7 +12,7 @@
 /// let machine = CompleteCythan::new_static_value(vec![12,23,45,20,0],3,1);
 ///
 /// // This function create a Cythan Machine with a step of 4 and a base value of index * 2
-/// let machine = CompleteCythan::new_config(vec![12,23,45,20,0],4,|x| x*2);
+/// let machine = CompleteCythan::new_config(vec![12,23,45,20,0],4,Box::new(|x| x*2));
 /// ```
 pub struct CompleteCythan {
     pub cases: Vec<usize>,
