@@ -1,3 +1,8 @@
+[![GitHub license](https://img.shields.io/github/license/Cythan-Project/Cythan-v3)](https://github.com/Cythan-Project/Cythan-v3/blob/master/LICENSE)
+[![Github Workflow](https://img.shields.io/github/workflow/status/Cythan-Project/Cythan-v3/Rust)](https://github.com/Cythan-Project/Cythan-v3/actions)
+[![Crate.io](https://img.shields.io/crates/v/cythan)](https://crates.io/crates/cythan)
+
+
 # Cythan v3
  Cythan is an abstract machine that has been created to be simpler than Turing's one.
  This is the Rust implementation of Cythan.
