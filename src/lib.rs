@@ -23,17 +23,13 @@
  *    println!("Cythan iteration {}:{}",a,cythan)
  * }
  * ```
- * 
+ *
  * ### Implementations
  *  - [`BasicCythan`](implementations/basic/struct.BasicCythan.html) Fast, simple, for most use cases
  *  - [`ChunkedCythan`](implementations/chunked/struct.ChunkedCythan.html) Use memory chunking to increase speed on large programs
  *  - [`CompleteCythan`](implementations/complete/struct.CompleteCythan.html) This is a fully configurable Cythan Machine but twice as slow as than the basic one.
  *
 */
-
-#![feature(test)]
-
-extern crate test;
 
 pub mod cythan;
 pub mod implementations;

@@ -1,59 +1,47 @@
-
-
 /// This Cythan implementation is optimized to take advantage of a fixed step of 2 and a base value of 0 to get very good performances!
 /// This implementation is the fastest on small codes but on larger codes the chunked implemenetation is faster
-/// 
+///
 /// ```rust
 /// use cythan::{Cythan,BasicCythan};
 /// // This function create a Cythan Machine with a step of 2 and a base value of 0
 /// let machine = BasicCythan::new(vec![12,23,45,20,0]);
 /// ```
 pub struct BasicCythan {
-    pub cases: Vec<usize>
+    pub cases: Vec<usize>,
 }
 
 impl std::fmt::Display for BasicCythan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Cythan{:?}",self.cases)
+        write!(f, "Cythan{:?}", self.cases)
     }
 }
 
 impl BasicCythan {
-
     /// Create a chunked Cythan Machine with a step of 2 and a base value of 0
     pub fn new(cases: Vec<usize>) -> Self {
-        Self {
-            cases
-        }
+        Self { cases }
     }
-
 }
 
 use crate::cythan::Cythan;
 
 impl Cythan for BasicCythan {
-    
     #[inline]
     fn next(&mut self) {
         unsafe {
-            let index = 
-                if self.cases.is_empty() {
-                    self.cases.push(2);
-                    0
-                } else {
-                    let index = self.cases.get_unchecked_mut(0);
-                    let o = *index;
-                    *index += 2;
-                    o
-                };
-            
+            let index = if self.cases.is_empty() {
+                self.cases.push(2);
+                0
+            } else {
+                let index = self.cases.get_unchecked_mut(0);
+                let o = *index;
+                *index += 2;
+                o
+            };
 
             let (c2, c1) = {
                 let mut i = self.cases.iter().skip(index);
-                (
-                    *i.next().unwrap_or(&0),
-                    *i.next().unwrap_or(&0),
-                )
+                (*i.next().unwrap_or(&0), *i.next().unwrap_or(&0))
             };
 
             self.set_value(c1, self.get_value(c2));
@@ -84,15 +72,6 @@ impl Cythan for BasicCythan {
     }
 }
 
-use test::Bencher;
-
-#[bench]
-fn basic_bench(b: &mut Bencher) {
-    let mut cythan = BasicCythan::new(vec![1, 9, 5, 10, 1, 0, 0, 11, 0, 1, 20, 21]);
-    b.iter(|| cythan.next());
-    println!("{}", cythan);
-}
-
 #[test]
 fn basic_test_if() {
     let mut cythan = BasicCythan::new(vec![1, 9, 5, 10, 1, 0, 0, 11, 0, 1, 20, 21]);
@@ -103,7 +82,7 @@ fn basic_test_if() {
 }
 #[test]
 fn basic_test_simple() {
-    let mut cythan = BasicCythan::new(vec![1,5,3,0,0,999]);
+    let mut cythan = BasicCythan::new(vec![1, 5, 3, 0, 0, 999]);
     cythan.next();
-    assert_eq!(cythan.cases, vec![3,5,3,999,0,999]);
+    assert_eq!(cythan.cases, vec![3, 5, 3, 999, 0, 999]);
 }
